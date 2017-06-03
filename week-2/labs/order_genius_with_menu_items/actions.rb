@@ -9,8 +9,10 @@ class Actions
   )
 
   def self.register_action(args)
-    if ACTION_WHITELIST.include?(args[0])
-      self.send(args[0], args)
+    first_arg = args[0].gsub(/:/, '_')
+
+    if ACTION_WHITELIST.include?(first_arg)
+      self.send(first_arg, args)
     end
 
     self.default
