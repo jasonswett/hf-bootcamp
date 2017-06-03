@@ -16,6 +16,12 @@ if ARGV[0] == 'restaurants'
   exit
 end
 
+if ARGV[0] == 'restaurant_detail'
+  restaurants = Restaurant.find_by_name(ARGV[1])
+  ui.show_restaurant_detail(restaurants[0])
+  exit
+end
+
 if ARGV[0] == 'add_restaurant'
   Restaurant.create(
     name: ARGV[1],

@@ -6,13 +6,13 @@ class Tag < MyActiveRecord
     @@connection.exec_params('SELECT * FROM tags order by name')
   end
 
-  def self.find_by_name(tag_name)
+  def self.find_by_name(name)
     query = %Q(
       SELECT tags.*
         FROM tags
-       WHERE LOWER(tags.name) = LOWER($1)
+       WHERE LOWER(name) = LOWER($1)
     )
 
-    @@connection.exec_params(query, [tag_name]);
+    @@connection.exec_params(query, [name]);
   end
 end

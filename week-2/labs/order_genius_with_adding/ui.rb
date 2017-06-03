@@ -16,6 +16,11 @@ class UI
     list_restaurants(restaurants)
   end
 
+  def show_restaurant_detail(restaurant)
+    puts restaurant['name']
+    puts restaurant['phone']
+  end
+
   def list_tags
     Tag.all.each do |row|
       puts row['name']

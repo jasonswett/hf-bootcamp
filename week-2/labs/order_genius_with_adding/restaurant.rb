@@ -6,6 +6,16 @@ class Restaurant < MyActiveRecord
     @@connection.exec_params('SELECT * FROM restaurants order by name')
   end
 
+  def self.find_by_name(name)
+    query = %Q(
+      SELECT restaurants.*
+        FROM restaurants
+       WHERE LOWER(name) = LOWER($1)
+    )
+
+    @@connection.exec_params(query, [name]);
+  end
+
   def self.with_tag_name(tag_name)
     query = %Q(
       SELECT DISTINCT restaurants.*
