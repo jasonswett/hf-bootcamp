@@ -19,11 +19,12 @@ unless Tag.find_by_name(connection, ARGV[0]).any?
   exit
 end
 
-unless Restaurant.with_tag_name(connection, ARGV[0]).any?
+restaurants = Restaurant.with_tag_name(connection, ARGV[0])
+unless restaurants.any?
   puts "No restaurants with tag \"#{ARGV[0]}\""
   exit
 end
 
-result.each do |row|
+restaurants.each do |row|
   puts row['name']
 end
