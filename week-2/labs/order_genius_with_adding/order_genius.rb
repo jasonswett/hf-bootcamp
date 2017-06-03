@@ -1,38 +1,18 @@
 #!/usr/bin/env ruby
 
-require_relative './ui.rb'
-require_relative './tag.rb'
-require_relative './restaurant.rb'
+require_relative 'ui'
+require_relative 'actions'
+require_relative 'tag'
+require_relative 'restaurant'
 
-ui = UI.new
+ACTION_WHITELIST = %w(
+  tags
+  restaurants
+  restaurant_detail
+  add_restaurant
+)
 
-if ARGV[0] == 'tags' || ARGV[0].nil?
-  ui.list_tags
-  exit
-end
+ARGV[0] = 'tags' if ARGV[0] == nil
 
-if ARGV[0] == 'restaurants'
-  ui.list_restaurants(Restaurant.all)
-  exit
-end
-
-if ARGV[0] == 'restaurant_detail'
-  restaurants = Restaurant.find_by_name(ARGV[1])
-  ui.show_restaurant_detail(restaurants[0])
-  exit
-end
-
-if ARGV[0] == 'add_restaurant'
-  Restaurant.create(
-    name: ARGV[1],
-    phone: ARGV[2]
-  )
-
-  exit
-end
-
-unless Tag.find_by_name(ARGV[0]).any?
-  ui.exit_with_message "No such tag \"#{ARGV[0]}\""
-end
-
-ui.list_restaurants_with_tag(ARGV[0])
+Actions.send(ARGV[0], ARGV) if ACTION_WHITELIST.include?(ARGV[0])
+Actions.default

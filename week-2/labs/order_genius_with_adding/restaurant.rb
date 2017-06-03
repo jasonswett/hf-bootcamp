@@ -1,5 +1,5 @@
 require 'pg'
-require_relative './my_active_record'
+require_relative 'my_active_record'
 
 class Restaurant < MyActiveRecord
   def self.table_name
