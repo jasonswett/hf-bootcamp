@@ -14,9 +14,7 @@ if ARGV[0] == 'tags' || ARGV[0].nil?
   exit
 end
 
-result = Tag.find_by_name(connection, ARGV[0])
-
-unless result.any?
+unless Tag.find_by_name(connection, ARGV[0]).any?
   puts "No such tag \"#{ARGV[0]}\""
   exit
 end
