@@ -1,5 +1,8 @@
-class Restaurant
-  def self.with_tag_name(connection, tag_name)
+require 'pg'
+require_relative './my_active_record'
+
+class Restaurant < MyActiveRecord
+  def self.with_tag_name(tag_name)
     query = %Q(
       SELECT DISTINCT restaurants.*
                  FROM restaurants
@@ -8,6 +11,6 @@ class Restaurant
                 WHERE LOWER(tags.name) = LOWER($1)
     )
 
-    connection.exec_params(query, [tag_name]);
+    @@connection.exec_params(query, [tag_name]);
   end
 end
