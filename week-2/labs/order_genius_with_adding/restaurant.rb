@@ -2,18 +2,8 @@ require 'pg'
 require_relative './my_active_record'
 
 class Restaurant < MyActiveRecord
-  def self.all
-    @@connection.exec_params('SELECT * FROM restaurants order by name')
-  end
-
-  def self.find_by_name(name)
-    query = %Q(
-      SELECT restaurants.*
-        FROM restaurants
-       WHERE LOWER(name) = LOWER($1)
-    )
-
-    @@connection.exec_params(query, [name]);
+  def self.table_name
+    'restaurants'
   end
 
   def self.with_tag_name(tag_name)
