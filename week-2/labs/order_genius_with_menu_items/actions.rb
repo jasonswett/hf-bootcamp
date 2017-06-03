@@ -1,6 +1,21 @@
 class Actions
   @@ui = UI.new
 
+  ACTION_WHITELIST = %w(
+    tags_list
+    restaurants_list
+    restaurants_detail
+    restaurants_add
+  )
+
+  def self.register_action(args)
+    if ACTION_WHITELIST.include?(args[0])
+      self.send(args[0], args)
+    end
+
+    self.default
+  end
+
   def self.default
     unless Tag.find_by_name(ARGV[0]).any?
       @@ui.exit_with_message "No such tag \"#{ARGV[0]}\""
