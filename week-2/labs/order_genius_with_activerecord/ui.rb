@@ -32,7 +32,7 @@ class UI
     puts 'Menu'
     puts '----'
 
-    menu_items = MenuItem.find_by_restaurant_id(restaurant['id'])
+    menu_items = restaurant.menu_items
 
     if menu_items.any?
       menu_items.each do |menu_item|
