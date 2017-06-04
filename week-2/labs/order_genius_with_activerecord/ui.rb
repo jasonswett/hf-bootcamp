@@ -13,7 +13,11 @@ class UI
   end
 
   def list_restaurants_with_tag(tag_name)
-    restaurants = Restaurant.with_tag_name(tag_name)
+    restaurants = Restaurant.joins(:restaurant_tags)
+                            .joins(:tags)
+                            .where('lower(tags.name) = ?', tag_name.downcase)
+                            .uniq
+
     exit_with_message "No restaurants with tag \"#{tag_name}\"" unless restaurants.any?
     list_restaurants(restaurants)
   end

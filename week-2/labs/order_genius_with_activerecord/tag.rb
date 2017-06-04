@@ -1,8 +1,7 @@
-require 'pg'
-require_relative 'my_active_record'
+require_relative 'config'
+require 'active_record'
 
-class Tag < MyActiveRecord
-  def self.table_name
-    'tags'
-  end
+class Tag < ActiveRecord::Base
+  has_many :restaurant_tags
+  has_many :restaurants, through: :restaurant_tags
 end

@@ -19,7 +19,7 @@ class Actions
   end
 
   def self.default
-    unless Tag.find_by_name(ARGV[0]).any?
+    unless Tag.where('lower(name) = ?', ARGV[0].downcase).any?
       @@ui.exit_with_message "No such tag \"#{ARGV[0]}\""
     end
 
