@@ -37,8 +37,8 @@ class Actions
   end
 
   def self.restaurants_detail(args)
-    restaurants = Restaurant.find_by_name(args[1])
-    @@ui.show_restaurant_detail(restaurants[0])
+    restaurant = Restaurant.find_by(name: args[1])
+    @@ui.show_restaurant_detail(restaurant)
     exit
   end
 
