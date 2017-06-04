@@ -5,6 +5,6 @@ require_relative 'actions'
 require_relative 'tag'
 require_relative 'restaurant'
 
-ARGV[0] = 'tags_list' if ARGV[0] == nil
+ARGV[0] = 'restaurants_list' if ARGV[0] == nil
 
 Actions.register_action(ARGV)

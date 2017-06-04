@@ -1,3 +1,5 @@
+require_relative 'menu_item'
+
 class UI
   def exit_with_message(message)
     puts message
@@ -17,8 +19,24 @@ class UI
   end
 
   def show_restaurant_detail(restaurant)
+    puts '--------------------'
     puts restaurant['name']
     puts restaurant['phone']
+    puts '--------------------'
+    puts
+
+    puts 'Menu'
+    puts '----'
+
+    menu_items = MenuItem.find_by_restaurant_id(restaurant['id'])
+
+    if menu_items.any?
+      menu_items.each do |menu_item|
+        puts "#{menu_item['name']} ($#{menu_item['price'].to_f / 100})"
+      end
+    else
+      puts '(No menu items)'
+    end
   end
 
   def list_tags
