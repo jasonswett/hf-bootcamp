@@ -6,6 +6,7 @@ class Actions
     restaurants_list
     restaurants_detail
     restaurants_add
+    restaurants_with_tag
   )
 
   def self.register_action(args)
@@ -36,9 +37,17 @@ class Actions
     exit
   end
 
+  def self.restaurants_with_tag(args)
+    tag = Tag.where('lower(name) = ?', args[1]).first
+
+    @@ui.list_restaurants(tag.restaurants)
+
+    exit
+  end
+
   def self.restaurants_detail(args)
-    restaurants = Restaurant.find_by_name(args[1])
-    @@ui.show_restaurant_detail(restaurants[0])
+    restaurants = Restaurant.find_by(name: args[1])
+    @@ui.show_restaurant_detail(restaurants)
     exit
   end
 
